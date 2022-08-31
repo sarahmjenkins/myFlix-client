@@ -1,5 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import './main-view.scss';
 
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
@@ -51,15 +55,25 @@ export class MainView extends React.Component {
     if (movies.length === 0) return <div className="main-view" />;
     
     return (
+    // if state of selectedMovie is not null, that selected movie will be returned otherwise a full list will be returned
       <div className="main-view">
-        {/* if state of selectedMovie is not null, that selected movie will be returned otherwise a full list will be returned */}
-        {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {this.setSelectedMovie(newSelectedMovie);}} />
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => {this.setSelectedMovie(movie)}} />
-          ))
-        }
-        <button>Register Here</button>
+        <Row className="justify-content-md-center">
+          {selectedMovie
+            ? (
+              <Col md={8}>
+                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => {this.setSelectedMovie(newSelectedMovie);}} />
+              </Col>
+            )
+            : movies.map(movie => (
+              <Col md={3}>
+                <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => {this.setSelectedMovie(newSelectedMovie);}} />
+              </Col> 
+            ))
+          }
+        </Row>
+        <Row className="justify-content-md-center">
+            <Button>Register Here</Button>
+        </Row>
       </div>
     );
   }
