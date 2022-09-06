@@ -57,9 +57,18 @@ export class MainView extends React.Component {
       user: authData.user.username
     });
 
-    localStorate.setItem('token', authData.token);
+    localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.username);
     this.getMovies(authData.token);
+  }
+
+  // remove token and user from local storage and clear user state when logging out
+  onLoggedOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.setState({
+      user: null
+    });
   }
   
   render() {
@@ -90,6 +99,9 @@ export class MainView extends React.Component {
         </Row>
         <Row className="justify-content-md-center">
             <Button>Register Here</Button>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Button onClick={() => { this.onLoggedOut() }}>Log out</Button>
         </Row>
       </div>
     );
