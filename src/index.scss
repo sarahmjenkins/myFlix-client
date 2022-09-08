@@ -2,25 +2,3 @@ $primary-color: #488500;
 $secondary-color: #9a334f;
 $light-grey: #d3d3d3;
 
-nav {
-  overflow: hidden;
-  background-color: $light-grey;
-  margin-bottom: 20px;
-  border-bottom: solid $secondary-color
-}
-
-nav a {
-  float: left;
-  text-align: center;
-  padding: 14px 16px;
-}
-
-nav a h1 {
-  color: $primary-color;
-}
-
-nav a.right-nav {
-  float: right;
-  margin-top: 15px;
-  color: $secondary-color;
-}
