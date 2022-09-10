@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import './registration-view.scss';
+import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import './registration-view.scss';
 
-export function RegistrationView(props) {
+export function RegistrationView() {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ usernameErr, setUsernameErr ] = useState('');
   const [ passwordErr, setPasswordErr ] = useState('');
   const [ emailErr, setEmailErr ] = useState('');
+  const [ birthday, setBirthday ] = useState('');
 
   const validate = () => {
     let isReq = true;
@@ -32,7 +32,7 @@ export function RegistrationView(props) {
     if(!email){
       setEmailErr('Email required');
       isReq = false;
-    } else if(indexOf('@') === -1) {
+    } else if (email.indexOf('@') === -1) {
       setEmailErr('Valid email required');
       isReq = false;
     }
@@ -45,15 +45,15 @@ export function RegistrationView(props) {
     const isReq = validate();
     if(isReq) {
       axios.post('https://myflixbysarah.herokuapp.com/users', {
-        username: username;
-        password: password
-        email: email;
-        birthday: birthday;
+        username: username,
+        password: password,
+        email: email,
+        birthday: birthday
       })
       .then(response => {
-        const data = resonse.data;
+        const data = response.data;
         console.log(data);
-        alert('Registration successful. Please log in.');
+        alert('Registration successful. Please sign in.');
         window.open('/', '_self');
       })
       .catch(response => {
@@ -94,10 +94,9 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.propTypes = {
-  user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired
-  }).isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  birthday: PropTypes.date,
   onRegistration: PropTypes.func.isRequired
 }
