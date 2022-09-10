@@ -1,14 +1,14 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Image from 'react-boostrap/Image';
+import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import './director-view.scss';
 
+import { MovieCard } from '../movie-card/movie-card';
+
 export class DirectorView extends React.Component {
+
   render () {
-    const { movie } = this.props;
+
+    const { movies, director, onBackClick } = this.props;
 
     return (
       <Container className="director-view">
@@ -17,21 +17,29 @@ export class DirectorView extends React.Component {
           <Image crossOrigin="anonymous" src={movie.director.imageURL} />
         </Row> */}
         <Row className="director-name justify-content-md-center">
-          <Col md={2} className="label">Name:</Col>
-          <Col md={10} className="value">{movie.director.name}</Col>
+          <Col md={8} className="header">{director.name}</Col>
         </Row>
         <Row className="director-bio justify-content-md-center">
-          <Col md={2} className="label">Bio:</Col>
-          <Col md={10} className="value">{movie.director.bio}</Col>
+          <Col md={8} className="director-info">Bio: {director.bio}</Col>
         </Row>
         <Row className="director-birth justify-content-md-center">
-          <Col md={2} className="label">Born:</Col>
-          <Col md={10} className="value">{movie.director.birth}</Col>
+          <Col md={8} className="director-info">Born: {director.birth}</Col>
         </Row>
         <Row className="director-death justify-content-md-center">
-          <Col md={2} className="label">Died:</Col>
-          <Col md={10} className="value">{movie.director.death}</Col>
+          <Col md={8} className="director-info">Died: {director.death ? `${director.death}` : 'n/a'}</Col>
         </Row>
+        <Row className="director-movies-header justify-content-md-center">
+          <Col md={8} className="sub-header">{director.name}'s Movies</Col>
+        </Row>
+        {/* Tried to figure out a way to get DirectorView to display MovieCard view for movies of that director */}
+        {/* <Row>
+          <Col md={3}>  
+            {movies.map((movie) => {
+              if (director.name)
+              return <MovieCard key={movie._id} movie={movie} />
+            })}
+          </Col>
+        </Row> */}
         <Row className="justify-content-md-center">
           <Button onClick={() => {onBackClick();}}>Back</Button>
         </Row>
