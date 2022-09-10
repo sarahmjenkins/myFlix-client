@@ -1,10 +1,13 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import './navbar.scss';
 
 export function Navbar() {
+  
+  const user = localStorage.getItem('user');
   
   const isAuth = () => {
     if(typeof window == 'undefined') {
@@ -33,9 +36,7 @@ export function Navbar() {
               <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
             )}
             {isAuth() && (
-              <Button variant="link" onClick={() => {
-                this.onLoggedOut()
-              }}>Sign Out</Button>
+              <Button variant="link" onClick={() => {onLoggedOut()}}>Sign Out</Button>
             )}
             {!isAuth() && (
               <Nav.Link href="/">Sign In</Nav.Link>
