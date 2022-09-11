@@ -50,8 +50,7 @@ export function RegistrationView() {
         birthday: birthday
       })
       .then(response => {
-        const data = response.data;
-        console.log(data);
+        console.log(response.data);
         alert('Registration successful. Please sign in.');
         window.open('/', '_self');
       })
