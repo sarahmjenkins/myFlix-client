@@ -44,7 +44,7 @@ export function RegistrationView() {
     e.preventDefault();
     const isReq = validate();
     if(isReq) {
-      axios.post('https://myflixbysarah.herokuapp.com/users', {
+      axios.post('https://myflixbysarah.herokuapp.com/register', {
         username: username,
         password: password,
         email: email,

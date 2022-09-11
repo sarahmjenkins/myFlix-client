@@ -44541,7 +44541,7 @@ function RegistrationView() {
     const handleSubmit = (e)=>{
         e.preventDefault();
         const isReq = validate();
-        if (isReq) _axiosDefault.default.post('https://myflixbysarah.herokuapp.com/users', {
+        if (isReq) _axiosDefault.default.post('https://myflixbysarah.herokuapp.com/register', {
             username: username,
             password: password,
             email: email,
