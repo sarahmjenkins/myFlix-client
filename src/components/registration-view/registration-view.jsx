@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import './registration-view.scss';
@@ -79,7 +78,7 @@ export function RegistrationView() {
 
        <Form.Group>
         <Form.Label>Birthday:</Form.Label>
-        <Form.Control type="date" placeholder="Enter your birthdate" onChange = {e => setBirthday(e.target.value)} />
+        <Form.Control type="date" value={birthday} placeholder="Enter your birthdate" onChange = {e => setBirthday(e.target.value)} />
       </Form.Group>
 
       <Form.Group>
