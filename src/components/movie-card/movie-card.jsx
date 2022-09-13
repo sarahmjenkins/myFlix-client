@@ -6,23 +6,32 @@ import { Link } from 'react-router-dom';
 import './movie-card.scss';
 
 export class MovieCard extends React.Component {
-
+  constructor(){
+    super()
+    this.addFavorite = this.addFavorite.bind(this)
+    this.removeFavorite = this.removeFavorite.bind(this)
+  }
   // add favorite movie
   addFavorite(e) { 
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
+    console.log(token);
     const {movie} = this.props;
+    console.log({movie});
     e.preventDefault();
-    axios.post(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, {
-      headers: { Authorization: `Bearer ${token}`}
+    axios.post(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, null, {
+      headers: { 
+        Authorization: `Bearer ${token}`
+    }
     })
     .then(response => {
       console.log(response.data);
-      alert(`${movie.Title} was added to your favorites!`);
+      // https://www.linkedin.com/pulse/you-have-know-closures-good-react-developer-nitsan-cohen/
+      alert(`${movie.title} was added to your favorites!`);
     })
     .catch(error => {
       console.log(error);
-      alert(`Unable to add ${movie.Title} to your favorites.`)
+      alert(`Unable to add ${movie.title} to your favorites.`)
     });
   }
 
@@ -35,13 +44,13 @@ export class MovieCard extends React.Component {
     axios.delete(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
-    .then(response =>
-      alert(`${movie.Title} was successfully removed from your favorites.`),
-    )
-    .catch(response =>
-      console.error(response),
-      alert(`Unable to remove ${movie.Title} from your favorites.`)
-    )
+    .then(() => {
+      alert(`${movie.title} was successfully removed from your favorites.`);
+    })
+    .catch(response => {
+      console.error(response);
+      alert(`Unable to remove ${movie.title} from your favorites.`)
+    })
   };
 
   render() {
@@ -63,10 +72,10 @@ export class MovieCard extends React.Component {
                 <input type="checkbox" />
                 <span className="slider" />
               </label> */}
-              <Button variant="primary" value={movie._id} onClick={e => this.addFavorite(e, movie)}>Favorite</Button>
+              <Button variant="primary" value={movie._id} onClick={this.addFavorite}>Favorite</Button>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Button variant="primary" onClick={e => this.removeFavorite(e)}>Unfavorite</Button>
+              <Button variant="primary" onClick={this.removeFavorite}>Unfavorite</Button>
             </ListGroup.Item>
           </ListGroup>
         </Card.Body>
