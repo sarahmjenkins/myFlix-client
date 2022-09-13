@@ -14,6 +14,7 @@ export class ProfileView extends React.Component {
       birthday: null,
       favoriteMovies: []
     };
+    this.getMovieTitle = this.getMovieTitle.bind(this)
   }
 
   // Get profile information to display on profile page
@@ -107,7 +108,7 @@ export class ProfileView extends React.Component {
     })
   };
 
-  // // delete user
+  // delete user
   deleteUser(e) {
     e.preventDefault();
     const username = localStorage.getItem('user');
@@ -154,6 +155,12 @@ export class ProfileView extends React.Component {
     this.birthday = updatedBirthday;
   }
 
+  getMovieTitle(id) {
+    const {movies} = this.props
+    console.log(this.props)
+    return movies.filter(movie => movie._id === id)[0] || null
+  }
+
   render () {
 
     const { username, email, birthday, favoriteMovies } = this.state;
@@ -179,9 +186,10 @@ export class ProfileView extends React.Component {
                 {favoriteMovies.length === 0 && (
                   "You have no favorite movies yet."
                 )}
-                {favoriteMovies.length > 0 && (
-                  "Under construction"
-                )}
+                {favoriteMovies.length > 0 && favoriteMovies.map(id => {
+                  const movie = this.getMovieTitle(id)
+                  return <p key={id}>{movie.title}</p>
+                })}
                 {/* Ideally would like to display movie cards of favorite movies. */}
               </ListGroupItem>
             </ListGroup>
