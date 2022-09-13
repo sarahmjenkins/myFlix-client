@@ -15,12 +15,15 @@ export class MovieView extends React.Component {
         <Row className="movie-poster justify-content-md-center">
           <Image crossOrigin="anonymous" width="200px" src={movie.imageURL} />
         </Row>
+        
         <Row className="movie-title justify-content-md-center">
           <Col md={8} className="header">{movie.title}</Col>
         </Row>
+        
         <Row className="movie-description justify-content-md-center">
           <Col md={8} className="movie-info">Description: {movie.description}</Col>
         </Row>
+        
         <Row className="movie-director justify-content-md-center">
           <Col md={8} className="movie-info">
             Director: 
@@ -28,8 +31,8 @@ export class MovieView extends React.Component {
               <Button variant="link">{movie.director.name}</Button>
             </Link>
           </Col>
-          
         </Row>
+        
         <Row className="movie-genre justify-content-md-center">
           <Col md={8} className="movie-info">
             Genre: 
@@ -38,6 +41,7 @@ export class MovieView extends React.Component {
             </Link>
           </Col>
         </Row>
+        
         <Row className="justify-content-md-center">
           <Button onClick={() => {onBackClick();}}>Back</Button>
         </Row>
