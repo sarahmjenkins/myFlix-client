@@ -9,24 +9,21 @@ export class MovieCard extends React.Component {
   constructor(){
     super()
     this.addFavorite = this.addFavorite.bind(this)
-    this.removeFavorite = this.removeFavorite.bind(this)
+    // this.removeFavorite = this.removeFavorite.bind(this)
   }
   // add favorite movie
   addFavorite(e) { 
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    console.log(token);
     const {movie} = this.props;
-    console.log({movie});
     e.preventDefault();
     axios.post(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, null, {
       headers: { 
         Authorization: `Bearer ${token}`
-    }
+      }
     })
     .then(response => {
       console.log(response.data);
-      // https://www.linkedin.com/pulse/you-have-know-closures-good-react-developer-nitsan-cohen/
       alert(`${movie.title} was added to your favorites!`);
     })
     .catch(error => {
@@ -35,23 +32,23 @@ export class MovieCard extends React.Component {
     });
   }
 
-  // remove favorite movie
-  removeFavorite(e) {
-    const username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    const {movie} = this.props;
-    e.preventDefault();
-    axios.delete(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(() => {
-      alert(`${movie.title} was successfully removed from your favorites.`);
-    })
-    .catch(response => {
-      console.error(response);
-      alert(`Unable to remove ${movie.title} from your favorites.`)
-    })
-  };
+  // remove favorite movie--keeping this as only an option in profile view until I add a toggle to show if movies are favorited
+  // removeFavorite(e) {
+  //   const username = localStorage.getItem('user');
+  //   const token = localStorage.getItem('token');
+  //   const {movie} = this.props;
+  //   e.preventDefault();
+  //   axios.delete(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, {
+  //     headers: { Authorization: `Bearer ${token}`}
+  //   })
+  //   .then(() => {
+  //     alert(`${movie.title} was successfully removed from your favorites.`);
+  //   })
+  //   .catch(response => {
+  //     console.error(response);
+  //     alert(`Unable to remove ${movie.title} from your favorites.`)
+  //   })
+  // };
 
   render() {
     const { movie } = this.props;
@@ -68,15 +65,12 @@ export class MovieCard extends React.Component {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              {/* <label className="switch">
-                <input type="checkbox" />
-                <span className="slider" />
-              </label> */}
               <Button variant="primary" value={movie._id} onClick={this.addFavorite}>Favorite</Button>
             </ListGroup.Item>
+            {/* Only allowing this as an option in profile view for now
             <ListGroup.Item>
               <Button variant="primary" onClick={this.removeFavorite}>Unfavorite</Button>
-            </ListGroup.Item>
+            </ListGroup.Item> */}
           </ListGroup>
         </Card.Body>
       </Card>
