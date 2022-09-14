@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { format } from 'date-fns';
-import { Container, Button, Form, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Card, ListGroup, ListGroupItem, Image } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './profile-view.scss';
 
 export class ProfileView extends React.Component {
@@ -15,6 +15,7 @@ export class ProfileView extends React.Component {
       favoriteMovies: []
     };
     this.getMovieTitle = this.getMovieTitle.bind(this)
+    this.removeFavorite = this.removeFavorite.bind(this)
   }
 
   // Get profile information to display on profile page
@@ -49,7 +50,26 @@ export class ProfileView extends React.Component {
     }
   }
 
+  // remove favorite movie
+  removeFavorite(movie) {
+    const username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    console.log(movie);
+    axios.delete(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(() => {
+      alert(`${movie.title} was successfully removed from your favorites.`);
+      window.open(`/users/${username}`, '_self');
+    })
+    .catch(response => {
+      console.error(response);
+      alert(`Unable to remove ${movie.title} from your favorites.`)
+    })
+  };
+
   // edit user info
+  // This function caused errors for updating--do I need it in update view?
   // validate() {
   //   let isReq = true;
   //   if(!this.updatedUsername){
@@ -157,7 +177,6 @@ export class ProfileView extends React.Component {
 
   getMovieTitle(id) {
     const {movies} = this.props
-    console.log(this.props)
     return movies.filter(movie => movie._id === id)[0] || null
   }
 
@@ -178,23 +197,29 @@ export class ProfileView extends React.Component {
           </Card.Body>
         </Card>
 
-        <Card className="favorite-movies">
-          <Card.Body>
-            <Card.Title>Your favorite movies</Card.Title>
-            <ListGroup>
-              <ListGroupItem>
-                {favoriteMovies.length === 0 && (
-                  "You have no favorite movies yet."
-                )}
-                {favoriteMovies.length > 0 && favoriteMovies.map(id => {
-                  const movie = this.getMovieTitle(id)
-                  return <p key={id}>{movie.title}</p>
-                })}
-                {/* Ideally would like to display movie cards of favorite movies. */}
-              </ListGroupItem>
-            </ListGroup>
-          </Card.Body>
-        </Card>
+        <Row className="subheader justify-content-md-center">
+          <h5>Your favorite movies</h5>
+        </Row>
+        <Row className="favorite-movies justify-content-md-center">
+          {favoriteMovies.length === 0 && (
+            <Col md={8}>You have no favorite movies yet.</Col>
+          )}
+          {favoriteMovies.length > 0 && favoriteMovies.map(id => {
+            const movie = this.getMovieTitle(id)
+            return (
+            <Col md={4} key={movie._id}>
+              <Card>
+                <Link to={`/movies/${movie._id}`}>
+                  <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
+                </Link>
+                {/* Line below makes app delete all movies at once */}
+                {/* <Button variant="primary" onClick={this.removeFavorite(movie)}>Unfavorite</Button> */}
+                <Button variant="primary" onClick={() => this.removeFavorite(movie)}>Unfavorite</Button>
+              </Card>
+            </Col>
+            )
+          })}
+        </Row>
 
         <Card className="delete-profile">        
           <Card.Body>
