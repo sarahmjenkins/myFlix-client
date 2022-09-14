@@ -45194,7 +45194,6 @@ class GenreView extends _reactDefault.default.Component {
                                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
                                         crossOrigin: "anonymous",
                                         src: movie.imageURL,
-                                        onClick: "Link to={`/movies/${movie._id}`}",
                                         __source: {
                                             fileName: "src/components/genre-view/genre-view.jsx",
                                             lineNumber: 52

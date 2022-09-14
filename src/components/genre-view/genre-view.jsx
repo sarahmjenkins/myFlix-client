@@ -49,7 +49,7 @@ export class GenreView extends React.Component {
               <Col md={4} key={movie._id}>
                 <Card>
                   <Link to={`/movies/${movie._id}`}>
-                    <Card.Img crossOrigin="anonymous" src={movie.imageURL} onClick="Link to={`/movies/${movie._id}`}" />
+                    <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
                   </Link>
                 </Card>
               </Col>
