@@ -3,27 +3,55 @@
   border: solid #488500;
 }
 
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
-nav {
-  overflow: hidden;
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #488500;
+  opacity: 0.5;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
   background-color: #d3d3d3;
-  margin-bottom: 20px;
-  border-bottom: solid #9a334f;
+  transition: 0.4s;
 }
 
-nav a {
-  float: left;
-  text-align: center;
-  padding: 14px 16px;
+input:checked + .slider {
+  opacity: 1;
 }
 
-nav a h1 {
-  color: #488500;
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
-nav a.right-nav {
-  float: right;
-  margin-top: 15px;
-  color: #9a334f;
-}
+
+
+
+
+
+
+
 /*# sourceMappingURL=index.1d334ea1.css.map */
