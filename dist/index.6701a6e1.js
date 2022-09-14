@@ -44824,21 +44824,34 @@ var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
+var _reactRouterDom = require("react-router-dom");
 var _directorViewScss = require("./director-view.scss");
 class DirectorView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        this.state = {
+            directorMovies: []
+        };
+    }
+    componentDidMount() {
+        const filteredMovies = this.getMovieTitle();
+        this.setState({
+            directorMovies: filteredMovies
+        });
+    }
     getMovieTitle() {
         const { movies  } = this.props;
         const { director  } = this.props;
         return movies.filter((movie)=>movie.director.name === director.name
-        )[0] || null;
+        );
     }
     render() {
-        const { movies , director , onBackClick  } = this.props;
+        const { director , onBackClick  } = this.props;
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             className: "director-view",
             __source: {
                 fileName: "src/components/director-view/director-view.jsx",
-                lineNumber: 18
+                lineNumber: 32
             },
             __self: this,
             children: [
@@ -44846,7 +44859,7 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "director-name justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 23
+                        lineNumber: 37
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
@@ -44854,13 +44867,13 @@ class DirectorView extends _reactDefault.default.Component {
                         className: "header",
                         __source: {
                             fileName: "src/components/director-view/director-view.jsx",
-                            lineNumber: 24
+                            lineNumber: 38
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsx("h4", {
                             __source: {
                                 fileName: "src/components/director-view/director-view.jsx",
-                                lineNumber: 24
+                                lineNumber: 38
                             },
                             __self: this,
                             children: director.name
@@ -44871,7 +44884,7 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "director-bio justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 27
+                        lineNumber: 41
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Col, {
@@ -44879,7 +44892,7 @@ class DirectorView extends _reactDefault.default.Component {
                         className: "director-info",
                         __source: {
                             fileName: "src/components/director-view/director-view.jsx",
-                            lineNumber: 28
+                            lineNumber: 42
                         },
                         __self: this,
                         children: [
@@ -44892,7 +44905,7 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "director-birth justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 31
+                        lineNumber: 45
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Col, {
@@ -44900,7 +44913,7 @@ class DirectorView extends _reactDefault.default.Component {
                         className: "director-info",
                         __source: {
                             fileName: "src/components/director-view/director-view.jsx",
-                            lineNumber: 32
+                            lineNumber: 46
                         },
                         __self: this,
                         children: [
@@ -44913,7 +44926,7 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "director-death justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 35
+                        lineNumber: 49
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Col, {
@@ -44921,7 +44934,7 @@ class DirectorView extends _reactDefault.default.Component {
                         className: "director-info",
                         __source: {
                             fileName: "src/components/director-view/director-view.jsx",
-                            lineNumber: 36
+                            lineNumber: 50
                         },
                         __self: this,
                         children: [
@@ -44934,7 +44947,7 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "director-movies-header justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 39
+                        lineNumber: 53
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
@@ -44942,13 +44955,13 @@ class DirectorView extends _reactDefault.default.Component {
                         className: "sub-header",
                         __source: {
                             fileName: "src/components/director-view/director-view.jsx",
-                            lineNumber: 40
+                            lineNumber: 54
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsxs("h6", {
                             __source: {
                                 fileName: "src/components/director-view/director-view.jsx",
-                                lineNumber: 40
+                                lineNumber: 54
                             },
                             __self: this,
                             children: [
@@ -44962,33 +44975,39 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 43
+                        lineNumber: 57
                     },
                     __self: this,
-                    children: movies.map(()=>{
-                        const movie = this.getMovieTitle();
-                        console.log(movie);
+                    children: this.state.directorMovies.map((movie)=>{
                         return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                             md: 4,
                             __source: {
                                 fileName: "src/components/director-view/director-view.jsx",
-                                lineNumber: 48
+                                lineNumber: 60
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card, {
                                 __source: {
                                     fileName: "src/components/director-view/director-view.jsx",
-                                    lineNumber: 49
+                                    lineNumber: 61
                                 },
                                 __self: this,
-                                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
-                                    crossOrigin: "anonymous",
-                                    src: movie.imageURL,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
+                                    to: `/movies/${movie._id}`,
                                     __source: {
                                         fileName: "src/components/director-view/director-view.jsx",
-                                        lineNumber: 51
+                                        lineNumber: 62
                                     },
-                                    __self: this
+                                    __self: this,
+                                    children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
+                                        crossOrigin: "anonymous",
+                                        src: movie.imageURL,
+                                        __source: {
+                                            fileName: "src/components/director-view/director-view.jsx",
+                                            lineNumber: 63
+                                        },
+                                        __self: this
+                                    })
                                 })
                             })
                         }, movie._id));
@@ -44998,7 +45017,7 @@ class DirectorView extends _reactDefault.default.Component {
                     className: "justify-content-md-center",
                     __source: {
                         fileName: "src/components/director-view/director-view.jsx",
-                        lineNumber: 59
+                        lineNumber: 71
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -45007,7 +45026,7 @@ class DirectorView extends _reactDefault.default.Component {
                         },
                         __source: {
                             fileName: "src/components/director-view/director-view.jsx",
-                            lineNumber: 60
+                            lineNumber: 72
                         },
                         __self: this,
                         children: "Back"
@@ -45023,7 +45042,7 @@ class DirectorView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","./director-view.scss":"hWS1b","@parcel/transformer-js/src/esmodule-helpers.js":"5lGN4","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lpaPZ","react-bootstrap":"h2YVd"}],"hWS1b":[function() {},{}],"8WCoL":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","./director-view.scss":"hWS1b","@parcel/transformer-js/src/esmodule-helpers.js":"5lGN4","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lpaPZ","react-bootstrap":"h2YVd","react-router-dom":"cpyQW"}],"hWS1b":[function() {},{}],"8WCoL":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$5f0a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -45038,13 +45057,26 @@ var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
+var _reactRouterDom = require("react-router-dom");
 var _genreViewScss = require("./genre-view.scss");
 class GenreView extends _reactDefault.default.Component {
+    constructor(){
+        super();
+        this.state = {
+            genreMovies: []
+        };
+    }
+    componentDidMount() {
+        const filteredMovies = this.getMovieTitle();
+        this.setState({
+            genreMovies: filteredMovies
+        });
+    }
     getMovieTitle() {
         const { movies  } = this.props;
         const { genre  } = this.props;
         return movies.filter((movie)=>movie.genre.name === genre.name
-        )[0] || null;
+        );
     }
     render() {
         const { movies , genre , onBackClick  } = this.props;
@@ -45053,7 +45085,7 @@ class GenreView extends _reactDefault.default.Component {
         return(/*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             __source: {
                 fileName: "src/components/genre-view/genre-view.jsx",
-                lineNumber: 19
+                lineNumber: 33
             },
             __self: this,
             children: [
@@ -45061,7 +45093,7 @@ class GenreView extends _reactDefault.default.Component {
                     className: "genre-name justify-content-md-center",
                     __source: {
                         fileName: "src/components/genre-view/genre-view.jsx",
-                        lineNumber: 20
+                        lineNumber: 34
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
@@ -45069,13 +45101,13 @@ class GenreView extends _reactDefault.default.Component {
                         className: "header",
                         __source: {
                             fileName: "src/components/genre-view/genre-view.jsx",
-                            lineNumber: 21
+                            lineNumber: 35
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsx("h4", {
                             __source: {
                                 fileName: "src/components/genre-view/genre-view.jsx",
-                                lineNumber: 21
+                                lineNumber: 35
                             },
                             __self: this,
                             children: capitalize(genre.name)
@@ -45086,7 +45118,7 @@ class GenreView extends _reactDefault.default.Component {
                     className: "genre-description justify-content-md-center",
                     __source: {
                         fileName: "src/components/genre-view/genre-view.jsx",
-                        lineNumber: 24
+                        lineNumber: 38
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Col, {
@@ -45094,7 +45126,7 @@ class GenreView extends _reactDefault.default.Component {
                         className: "genre-info",
                         __source: {
                             fileName: "src/components/genre-view/genre-view.jsx",
-                            lineNumber: 25
+                            lineNumber: 39
                         },
                         __self: this,
                         children: [
@@ -45107,7 +45139,7 @@ class GenreView extends _reactDefault.default.Component {
                     className: "genre-movies-header justify-content-md-center",
                     __source: {
                         fileName: "src/components/genre-view/genre-view.jsx",
-                        lineNumber: 28
+                        lineNumber: 42
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
@@ -45115,13 +45147,13 @@ class GenreView extends _reactDefault.default.Component {
                         className: "sub-header",
                         __source: {
                             fileName: "src/components/genre-view/genre-view.jsx",
-                            lineNumber: 29
+                            lineNumber: 43
                         },
                         __self: this,
                         children: /*#__PURE__*/ _jsxRuntime.jsxs("h6", {
                             __source: {
                                 fileName: "src/components/genre-view/genre-view.jsx",
-                                lineNumber: 29
+                                lineNumber: 43
                             },
                             __self: this,
                             children: [
@@ -45135,33 +45167,40 @@ class GenreView extends _reactDefault.default.Component {
                     className: "justify-content-md-center",
                     __source: {
                         fileName: "src/components/genre-view/genre-view.jsx",
-                        lineNumber: 32
+                        lineNumber: 46
                     },
                     __self: this,
-                    children: movies.map(()=>{
-                        const movie = this.getMovieTitle();
-                        console.log(movie);
+                    children: this.state.genreMovies.map((movie)=>{
                         return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                             md: 4,
                             __source: {
                                 fileName: "src/components/genre-view/genre-view.jsx",
-                                lineNumber: 37
+                                lineNumber: 49
                             },
                             __self: this,
                             children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card, {
                                 __source: {
                                     fileName: "src/components/genre-view/genre-view.jsx",
-                                    lineNumber: 38
+                                    lineNumber: 50
                                 },
                                 __self: this,
-                                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
-                                    crossOrigin: "anonymous",
-                                    src: movie.imageURL,
+                                children: /*#__PURE__*/ _jsxRuntime.jsx(_reactRouterDom.Link, {
+                                    to: `/movies/${movie._id}`,
                                     __source: {
                                         fileName: "src/components/genre-view/genre-view.jsx",
-                                        lineNumber: 40
+                                        lineNumber: 51
                                     },
-                                    __self: this
+                                    __self: this,
+                                    children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Card.Img, {
+                                        crossOrigin: "anonymous",
+                                        src: movie.imageURL,
+                                        onClick: "Link to={`/movies/${movie._id}`}",
+                                        __source: {
+                                            fileName: "src/components/genre-view/genre-view.jsx",
+                                            lineNumber: 52
+                                        },
+                                        __self: this
+                                    })
                                 })
                             })
                         }, movie._id));
@@ -45171,7 +45210,7 @@ class GenreView extends _reactDefault.default.Component {
                     className: "justify-content-md-center",
                     __source: {
                         fileName: "src/components/genre-view/genre-view.jsx",
-                        lineNumber: 48
+                        lineNumber: 60
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
@@ -45180,7 +45219,7 @@ class GenreView extends _reactDefault.default.Component {
                         },
                         __source: {
                             fileName: "src/components/genre-view/genre-view.jsx",
-                            lineNumber: 49
+                            lineNumber: 61
                         },
                         __self: this,
                         children: "Back"
@@ -45196,7 +45235,7 @@ class GenreView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","./genre-view.scss":"3BqnD","@parcel/transformer-js/src/esmodule-helpers.js":"5lGN4","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lpaPZ","react-bootstrap":"h2YVd"}],"3BqnD":[function() {},{}],"2E7Aw":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","./genre-view.scss":"3BqnD","@parcel/transformer-js/src/esmodule-helpers.js":"5lGN4","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"lpaPZ","react-bootstrap":"h2YVd","react-router-dom":"cpyQW"}],"3BqnD":[function() {},{}],"2E7Aw":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$58c6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
