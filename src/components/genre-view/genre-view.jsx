@@ -1,39 +1,50 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { Container, Row, Col, Button, Card, Link} from 'react-bootstrap';
 import './genre-view.scss';
-
-import { MovieCard } from '../movie-card/movie-card';
 
 export class GenreView extends React.Component {
 
+    getMovieTitle() {
+    const {movies} = this.props;
+    const {genre} = this.props;
+    return movies.filter(movie => movie.genre.name === genre.name)[0] || null
+  }
+
   render () {
-    const { genre, onBackClick } = this.props;
+    const { movies, genre, onBackClick } = this.props;
 
     const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
 
     return (
       <Container>
         <Row className="genre-name justify-content-md-center">
-          <Col md={8} className="header">{capitalize(genre.name)}</Col>
+          <Col md={8} className="header"><h4>{capitalize(genre.name)}</h4></Col>
         </Row>
+        
         <Row className="genre-description justify-content-md-center">
           <Col md={8} className="genre-info">Description: {genre.description}</Col>
         </Row>
+        
         <Row className="genre-movies-header justify-content-md-center">
-          <Col md={8} className="sub-header">{capitalize(genre.name)} Movies</Col>
+          <Col md={8} className="sub-header"><h6>{capitalize(genre.name)} Movies</h6></Col>
         </Row>
-        {/* Tried to figure out a way to get GenreView to display MovieCard view for movies of that genre */}
-        {/* <Row>
-          <Col md={3}>  
-            {{movies.map((movie) => {
-              if (genre.name)
-              return <MovieCard key={movie._id} movie={movie} />
-            })} 
-          </Col> 
-        </Row> */}
+        
+        <Row className="justify-content-md-center">
+          {movies.map(() => {
+            const movie = this.getMovieTitle();
+            console.log(movie);
+            return (
+              <Col md={4} key={movie._id}>
+                <Card>
+                  {/* <Link to={`/movies/${movie._id}`}> */}
+                    <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
+                  {/* </Link> */}
+                </Card>
+              </Col>
+            )
+          })}
+        </Row>
+        
         <Row className="justify-content-md-center">
           <Button onClick={() => {onBackClick();}}>Back</Button>
         </Row>
