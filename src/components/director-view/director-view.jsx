@@ -1,18 +1,32 @@
 import React from 'react';
-import { Container, Row, Col, Button, Card, Link } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './director-view.scss';
 
 export class DirectorView extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      directorMovies: [],
+    };
+  }
+
+  componentDidMount() {
+    const filteredMovies = this.getMovieTitle();
+    this.setState({
+      directorMovies: filteredMovies,
+    });
+  }
 
   getMovieTitle() {
     const {movies} = this.props;
     const {director} = this.props;
-    return movies.filter(movie => movie.director.name === director.name)[0] || null
+    return movies.filter(movie => movie.director.name === director.name);
   }
   
   render () {
 
-    const { movies, director, onBackClick } = this.props;
+    const { director, onBackClick } = this.props;
 
     return (
       <Container className="director-view">
@@ -41,15 +55,13 @@ export class DirectorView extends React.Component {
         </Row>
 
         <Row className="justify-content-md-center">
-          {movies.map(() => {
-            const movie = this.getMovieTitle();
-            console.log(movie);
+          {this.state.directorMovies.map(movie => {
             return (
               <Col md={4} key={movie._id}>
                 <Card>
-                  {/* <Link to={`/movies/${movie._id}`}> */}
+                  <Link to={`/movies/${movie._id}`}>
                     <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
-                  {/* </Link> */}
+                  </Link>
                 </Card>
               </Col>
             )

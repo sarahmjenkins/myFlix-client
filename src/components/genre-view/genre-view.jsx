@@ -1,13 +1,27 @@
 import React from 'react';
-import { Container, Row, Col, Button, Card, Link} from 'react-bootstrap';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './genre-view.scss';
 
 export class GenreView extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      genreMovies: [],
+    };
+  }
 
-    getMovieTitle() {
+  componentDidMount() {
+    const filteredMovies = this.getMovieTitle();
+    this.setState({
+      genreMovies: filteredMovies,
+    });
+  }
+
+  getMovieTitle() {
     const {movies} = this.props;
     const {genre} = this.props;
-    return movies.filter(movie => movie.genre.name === genre.name)[0] || null
+    return movies.filter(movie => movie.genre.name === genre.name);
   }
 
   render () {
@@ -30,15 +44,13 @@ export class GenreView extends React.Component {
         </Row>
         
         <Row className="justify-content-md-center">
-          {movies.map(() => {
-            const movie = this.getMovieTitle();
-            console.log(movie);
+          {this.state.genreMovies.map(movie => {
             return (
               <Col md={4} key={movie._id}>
                 <Card>
-                  {/* <Link to={`/movies/${movie._id}`}> */}
-                    <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
-                  {/* </Link> */}
+                  <Link to={`/movies/${movie._id}`}>
+                    <Card.Img crossOrigin="anonymous" src={movie.imageURL} onClick="Link to={`/movies/${movie._id}`}" />
+                  </Link>
                 </Card>
               </Col>
             )
