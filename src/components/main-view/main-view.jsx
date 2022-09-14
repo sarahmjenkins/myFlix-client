@@ -92,7 +92,7 @@ export class MainView extends React.Component {
               </Col>
               if (movies.length == 0) return <div className="main-view" />;
               return movies.map(m => (
-                <Col md={3} key={m._id}>
+                <Col sm={12} md={4} lg={3} key={m._id}>
                   <MovieCard movie={m} />
                 </Col>
               ))
@@ -120,7 +120,7 @@ export class MainView extends React.Component {
               if (!user) return <Redirect to="/" />
               if(movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-                <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()} />
+                <GenreView movies={this.state.movies} genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()} />
               </Col>
             }} />
             
@@ -129,12 +129,12 @@ export class MainView extends React.Component {
               if (!user) return <Redirect to="/" />
               if (movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-                <DirectorView director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} />
+                <DirectorView movies={this.state.movies} director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} />
               </Col>
             }} />
 
             {/* path renders user's info */}
-            <Route exact path={`/users/${user}`} render={({ history }) => {
+            <Route exact path={`/users/${user}`} render={({ history, match }) => {
               if (!user) return <Redirect to="/" />
               return <Col md={8}>
                 <ProfileView user={user} movies={this.state.movies} onBackClick={() => history.goBack()} />
