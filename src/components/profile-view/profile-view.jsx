@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Button, Form, Card, ListGroup, ListGroupItem, Image } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './profile-view.scss';
 
@@ -185,98 +185,79 @@ export class ProfileView extends React.Component {
     const { username, email, birthday, favoriteMovies } = this.state;
 
     return ( 
-      <Container className="profile-view">
-        <Card className="profile-info">
-          <Card.Body>
-            <Card.Title>Your profile information</Card.Title>
-            <ListGroup>
-              <ListGroup.Item>Username: {username}</ListGroup.Item>
-              <ListGroup.Item>Email: {email}</ListGroup.Item>
-              <ListGroup.Item>Birthday: {birthday}</ListGroup.Item>
-            </ListGroup>
-          </Card.Body>
-        </Card>
+      <Container fluid="md" className="profile-view">
+        <Row className="justify-content-md-center">
+          <Col className="profile-info" xs={12} sm={6}>
+            <Card>
+              <Card.Body>
+                <Card.Title>Your profile information</Card.Title>
+                <Card.Text>
+                  <p>Username: {username}</p>
+                  <p>Email: {email}</p>
+                  <p>Birthday: {birthday}</p>
+                  <Button onClick={e => this.deleteUser(e)}>Delete your profile</Button>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
 
-        <Row className="subheader justify-content-md-center">
-          <h5>Your favorite movies</h5>
-        </Row>
-        <Row className="favorite-movies justify-content-md-center">
-          {favoriteMovies.length === 0 && (
-            <Col md={8}>You have no favorite movies yet.</Col>
-          )}
-          {favoriteMovies.length > 0 && favoriteMovies.map(id => {
-            const movie = this.getMovieTitle(id)
-            return (
-            <Col md={4} key={movie._id}>
-              <Card>
-                <Link to={`/movies/${movie._id}`}>
-                  <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
-                </Link>
-                {/* Line below makes app delete all movies at once */}
-                {/* <Button variant="primary" onClick={this.removeFavorite(movie)}>Unfavorite</Button> */}
-                <Button variant="primary" onClick={() => this.removeFavorite(movie)}>Unfavorite</Button>
-              </Card>
-            </Col>
-            )
-          })}
-        </Row>
-
-        <Card className="delete-profile">        
-          <Card.Body>
-            <Card.Title>Delete your profile</Card.Title>
-            <ListGroup>
-              <ListGroupItem>
-                <Button onClick={e => this.deleteUser(e)}>Delete profile</Button>
-              </ListGroupItem>
-            </ListGroup>
-          </Card.Body>
-        </Card>  
-        
-        <Card className="update-profile">
-          <Card.Body>
-            <Card.Title>Update your profile information</Card.Title>
-            <Form className="update-form" onSubmit={(e) => this.editUser(e, this.username, this.password, this.email, this.birthday)}>
-              <ListGroup>
-                
-                <ListGroup.Item>
+          <Col className="update-profile" sx={12} sm={6}>
+            <Card>
+              <Card.Body>
+                <Card.Title>Update your profile information</Card.Title>
+                <Form className="update-form" onSubmit={(e) => this.editUser(e, this.username, this.password, this.email, this.birthday)}>
                   <Form.Group>
                     <Form.Label>Username:</Form.Label>
                       <Form.Control type="text" placeholder="Update your username" onChange = {e => this.setUsername(e.target.value)} required />
                       {this.usernameErr && <p>{this.usernameErr}</p>}
                   </Form.Group>
-                </ListGroup.Item>
                 
-                <ListGroupItem>
                   <Form.Group>
                     <Form.Label>Password:</Form.Label>
                       <Form.Control type="password" placeholder="Update your password" onChange = {e => this.setPassword(e.target.value)} required minLength="4" />
                       {this.passwordErr && <p>{this.passwordErr}</p>}
                   </Form.Group>
-                </ListGroupItem>
                 
-                <ListGroupItem>
-                  <Form.Group>
-                    <Form.Label>Birthday:</Form.Label>
-                      <Form.Control type="date" onChange={e => this.setBirthday(e.target.value)} />
-                  </Form.Group>
-                </ListGroupItem>
-                
-                <ListGroupItem>
                   <Form.Group>
                     <Form.Label>Email:</Form.Label>
                       <Form.Control type="email" placeholder="Update your email" onChange={e => this.setEmail(e.target.value)} required />
                       {this.emailErr && <p>{this.emailErr}</p>}
                   </Form.Group>
-                </ListGroupItem>
                 
-                <ListGroupItem>
+                  <Form.Group>
+                    <Form.Label>Birthday:</Form.Label>
+                      <Form.Control type="date" onChange={e => this.setBirthday(e.target.value)} />
+                  </Form.Group>
                   <Button variant="primary" type="submit" onClick={e => this.editUser(e)}>Update profile</Button>
-                </ListGroupItem>
-              
-              </ListGroup>
-            </Form>
-          </Card.Body>
-        </Card>
+                </Form>
+              </Card.Body>
+          </Card>
+          </Col>
+        </Row>
+
+        <Row className="subheader justify-content-md-center">
+          <Col xs={12}>
+            <h5>Your favorite movies</h5>
+          </Col>
+        </Row>
+        <Row className="favorite-movies justify-content-md-center">
+          {favoriteMovies.length === 0 && (
+            <Col xs={12} md={8}>You have no favorite movies yet.</Col>
+          )}
+          {favoriteMovies.length > 0 && favoriteMovies.map(id => {
+            const movie = this.getMovieTitle(id)
+            return (
+              <Col xs={12} md={4} lg={3} key={movie._id}>
+                <Card>
+                  <Link to={`/movies/${movie._id}`}>
+                    <Card.Img crossOrigin="anonymous" src={movie.imageURL} />
+                  </Link>
+                  <Button variant="primary" onClick={() => this.removeFavorite(movie)}>Unfavorite</Button>
+                </Card>
+              </Col>
+            )
+          })}
+        </Row>
       </Container>
     );
   }

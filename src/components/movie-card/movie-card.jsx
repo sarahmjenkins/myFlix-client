@@ -55,23 +55,23 @@ export class MovieCard extends React.Component {
     
     return (
       <Card className="movie-card">
-        <Card.Img crossOrigin="anonymous" variant="top" width="100px" src={movie.imageURL} />
+        <Card.Img crossOrigin="anonymous" variant="top" src={movie.imageURL} />
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
-          <ListGroup>
-            <ListGroup.Item>
+          <Card.Text>
+            <p>
               <Link to={`/movies/${movie._id}`}>
                 <Button variant="link">About this movie</Button>
               </Link>
-            </ListGroup.Item>
-            <ListGroup.Item>
+            </p>
+            <p>
               <Button variant="primary" value={movie._id} onClick={this.addFavorite}>Favorite</Button>
-            </ListGroup.Item>
+            </p>
             {/* Only allowing this as an option in profile view for now
-            <ListGroup.Item>
+            <p>
               <Button variant="primary" onClick={this.removeFavorite}>Unfavorite</Button>
-            </ListGroup.Item> */}
-          </ListGroup>
+            </p> */}
+          </Card.Text>
         </Card.Body>
       </Card>
     );

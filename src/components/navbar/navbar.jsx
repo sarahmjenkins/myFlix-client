@@ -26,7 +26,7 @@ export function Navbar() {
   };
   
   return(
-    <Navbar bg="light" expand="lg" sticky="top">
+    <Navbar fluid="md" bg="light" expand="lg" sticky="top">
       <Container>
         <Navbar.Brand href="/">myFlix by Sarah</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
