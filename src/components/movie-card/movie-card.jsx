@@ -59,18 +59,13 @@ export class MovieCard extends React.Component {
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>
-            <p>
               <Link to={`/movies/${movie._id}`}>
                 <Button variant="link">About this movie</Button>
               </Link>
-            </p>
-            <p>
               <Button variant="primary" value={movie._id} onClick={this.addFavorite}>Favorite</Button>
-            </p>
             {/* Only allowing this as an option in profile view for now
-            <p>
               <Button variant="primary" onClick={this.removeFavorite}>Unfavorite</Button>
-            </p> */}
+            */}
           </Card.Text>
         </Card.Body>
       </Card>
