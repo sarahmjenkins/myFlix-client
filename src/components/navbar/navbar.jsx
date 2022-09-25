@@ -1,8 +1,5 @@
 import React from 'react';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
+import { Nav, Navbar, Container, Button } from 'react-bootstrap';
 import './navbar.scss';
 
 export function Navbar() {
