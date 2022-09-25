@@ -7,6 +7,13 @@ This project uses React to build the client-side for a movie application with an
 When this project is completec, users will be able see a list of all movies, including image, title, and details; view a single movie; and view data on movie genres and directors. Users will also be able to create accounts, log in, and add and remove movies from a favorite movies list.
 
 ## Dependencies
+<<<<<<< Updated upstream
+=======
+- Axios
+- Parcel
+- Parcel-Bundler
+- Prop-Types
+>>>>>>> Stashed changes
 - React
 - React-DOM
 - Parcel
