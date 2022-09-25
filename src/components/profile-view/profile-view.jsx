@@ -1,44 +1,24 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Button, Form, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Container, Row, Col, Button, Form, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { setUser } from '../../actions/actions';
 import './profile-view.scss';
 
-export class ProfileView extends React.Component {
+class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: null,
-      password: null,
-      email: null,
-      birthday: null,
+      username: '',
+      password: '',
+      email: '',
+      birthday: '',
       favoriteMovies: []
     };
     this.getMovieTitle = this.getMovieTitle.bind(this)
     this.removeFavorite = this.removeFavorite.bind(this)
   }
-
-  // Get profile information to display on profile page
-  getUser() {
-    const username = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
-    axios.get(`https://myflixbysarah.herokuapp.com/users/${username}`, {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(response => {
-      this.setState({
-        username: response.data.username,
-        password: response.data.password,
-        email: response.data.email,
-        birthday: response.data.birthday,
-        favoriteMovies: response.data.favoriteMovies
-      });
-      console.table(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-  };
 
   componentDidMount() {
     const accessToken = localStorage.getItem('token');
@@ -49,12 +29,33 @@ export class ProfileView extends React.Component {
       this.getUser(accessToken);
     }
   }
+  
+  // Get profile information to display on profile page
+  getUser() {
+    const username = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    axios.get(`https://myflixbysarah.herokuapp.com/users/${username}`, {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      this.props.setUser(response.data.username);
+      this.setState({
+        username: response.data.username,
+        password: response.data.password,
+        email: response.data.email,
+        birthday: response.data.birthday,
+        favoriteMovies: response.data.favoriteMovies
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  };
 
   // remove favorite movie
   removeFavorite(movie) {
     const username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    console.log(movie);
     axios.delete(`https://myflixbysarah.herokuapp.com/users/${username}/movies/${movie._id}`, {
       headers: { Authorization: `Bearer ${token}`}
     })
@@ -111,11 +112,13 @@ export class ProfileView extends React.Component {
       bithday: this.state.birthday
     }, {headers: { Authorization: `Bearer ${token}`}})
     .then(response => {
+      this.props.setUser(response.data.username);
       this.setState({
         username: response.data.username,
         password: response.data.password,
         email: response.data.email,
-        bithday: response.data.birthday
+        birthday: response.data.birthday,
+        favoriteMovies: response.data.favoriteMovies
       });
       alert('Update successful.');
       localStorage.setItem('user', this.state.username);
@@ -183,18 +186,20 @@ export class ProfileView extends React.Component {
   render () {
 
     const { username, email, birthday, favoriteMovies } = this.state;
+    // const { user } = this.props;
 
     return ( 
+      // return div with profile view
       <Container fluid="md" className="profile-view">
         <Row className="justify-content-md-center">
           <Col className="profile-info" xs={12} sm={6}>
             <Card>
               <Card.Body>
                 <Card.Title>Your profile information</Card.Title>
+                <Card.Text>Username: {username}</Card.Text>
+                <Card.Text>Email: {email}</Card.Text>
+                <Card.Text>Birthday: {birthday}</Card.Text>
                 <Card.Text>
-                  <p>Username: {username}</p>
-                  <p>Email: {email}</p>
-                  <p>Birthday: {birthday}</p>
                   <Button onClick={e => this.deleteUser(e)}>Delete your profile</Button>
                 </Card.Text>
               </Card.Body>
@@ -205,33 +210,33 @@ export class ProfileView extends React.Component {
             <Card>
               <Card.Body>
                 <Card.Title>Update your profile information</Card.Title>
-                <Form className="update-form" onSubmit={(e) => this.editUser(e, this.username, this.password, this.email, this.birthday)}>
-                  <Form.Group>
-                    <Form.Label>Username:</Form.Label>
-                      <Form.Control type="text" placeholder="Update your username" onChange = {e => this.setUsername(e.target.value)} required />
-                      {this.usernameErr && <p>{this.usernameErr}</p>}
-                  </Form.Group>
+                  <Form className="update-form" onSubmit={(e) => this.editUser(e, this.state.username, this.password, this.email, this.birthday)}>
+                    <Form.Group>
+                      <Form.Label>Username:</Form.Label>
+                        <Form.Control type="text" placeholder="Update your username" onChange = {e => this.setUsername(e.target.value)} required />
+                        {this.usernameErr && <p>{this.usernameErr}</p>}
+                    </Form.Group>
                 
-                  <Form.Group>
-                    <Form.Label>Password:</Form.Label>
-                      <Form.Control type="password" placeholder="Update your password" onChange = {e => this.setPassword(e.target.value)} required minLength="4" />
-                      {this.passwordErr && <p>{this.passwordErr}</p>}
-                  </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Password:</Form.Label>
+                        <Form.Control type="password" placeholder="Update your password" onChange = {e => this.setPassword(e.target.value)} required minLength="4" />
+                        {this.passwordErr && <p>{this.passwordErr}</p>}
+                    </Form.Group>
                 
-                  <Form.Group>
-                    <Form.Label>Email:</Form.Label>
-                      <Form.Control type="email" placeholder="Update your email" onChange={e => this.setEmail(e.target.value)} required />
-                      {this.emailErr && <p>{this.emailErr}</p>}
-                  </Form.Group>
+                    <Form.Group>
+                      <Form.Label>Email:</Form.Label>
+                        <Form.Control type="email" placeholder="Update your email" onChange={e => this.setEmail(e.target.value)} required />
+                        {this.emailErr && <p>{this.emailErr}</p>}
+                    </Form.Group>
                 
-                  <Form.Group>
-                    <Form.Label>Birthday:</Form.Label>
-                      <Form.Control type="date" onChange={e => this.setBirthday(e.target.value)} />
-                  </Form.Group>
-                  <Button variant="primary" type="submit" onClick={e => this.editUser(e)}>Update profile</Button>
+                    <Form.Group>
+                      <Form.Label>Birthday:</Form.Label>
+                        <Form.Control type="date" onChange={e => this.setBirthday(e.target.value)} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={e => this.editUser(e)}>Update profile</Button>
                 </Form>
               </Card.Body>
-          </Card>
+            </Card>
           </Col>
         </Row>
 
@@ -240,11 +245,12 @@ export class ProfileView extends React.Component {
             <h5>Your favorite movies</h5>
           </Col>
         </Row>
+        
         <Row className="favorite-movies justify-content-md-center">
           {favoriteMovies.length === 0 && (
             <Col xs={12} md={8}>You have no favorite movies yet.</Col>
           )}
-          {favoriteMovies.length > 0 && favoriteMovies.map(id => {
+          {favoriteMovies.map(id => {
             const movie = this.getMovieTitle(id)
             return (
               <Col xs={12} md={4} lg={3} key={movie._id}>
@@ -262,3 +268,11 @@ export class ProfileView extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { 
+    user: state.user 
+  }
+}
+
+export default connect(mapStateToProps, { setUser })(ProfileView);
