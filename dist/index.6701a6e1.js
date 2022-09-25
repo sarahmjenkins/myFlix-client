@@ -45044,14 +45044,7 @@ parcelHelpers.export(exports, "Navbar", ()=>Navbar
 var _jsxRuntime = require("react/jsx-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _nav = require("react-bootstrap/Nav");
-var _navDefault = parcelHelpers.interopDefault(_nav);
-var _navbar = require("react-bootstrap/Navbar");
-var _navbarDefault = parcelHelpers.interopDefault(_navbar);
-var _container = require("react-bootstrap/Container");
-var _containerDefault = parcelHelpers.interopDefault(_container);
-var _button = require("react-bootstrap/Button");
-var _buttonDefault = parcelHelpers.interopDefault(_button);
+var _reactBootstrap = require("react-bootstrap");
 var _navbarScss = require("./navbar.scss");
 function Navbar() {
     const user = localStorage.getItem('user');
@@ -45064,89 +45057,89 @@ function Navbar() {
         localStorage.clear();
         window.open('/', '_self');
     };
-    return(/*#__PURE__*/ _jsxRuntime.jsx(_navbarDefault.default, {
+    return(/*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar, {
         fluid: "md",
         bg: "light",
         expand: "lg",
         sticky: "top",
         __source: {
             fileName: "src/components/navbar/navbar.jsx",
-            lineNumber: 29
+            lineNumber: 26
         },
         __self: this,
-        children: /*#__PURE__*/ _jsxRuntime.jsxs(_containerDefault.default, {
+        children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Container, {
             __source: {
                 fileName: "src/components/navbar/navbar.jsx",
-                lineNumber: 30
+                lineNumber: 27
             },
             __self: this,
             children: [
-                /*#__PURE__*/ _jsxRuntime.jsx(_navbarDefault.default.Brand, {
+                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Brand, {
                     href: "/",
                     __source: {
                         fileName: "src/components/navbar/navbar.jsx",
-                        lineNumber: 31
+                        lineNumber: 28
                     },
                     __self: this,
                     children: "myFlix by Sarah"
                 }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_navbarDefault.default.Toggle, {
+                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Toggle, {
                     "aria-controls": "basic-navbar-nav",
                     __source: {
                         fileName: "src/components/navbar/navbar.jsx",
-                        lineNumber: 32
+                        lineNumber: 29
                     },
                     __self: this
                 }),
-                /*#__PURE__*/ _jsxRuntime.jsx(_navbarDefault.default.Collapse, {
+                /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Navbar.Collapse, {
                     id: "basic-navbar-nav",
                     __source: {
                         fileName: "src/components/navbar/navbar.jsx",
-                        lineNumber: 33
+                        lineNumber: 30
                     },
                     __self: this,
-                    children: /*#__PURE__*/ _jsxRuntime.jsxs(_navDefault.default, {
+                    children: /*#__PURE__*/ _jsxRuntime.jsxs(_reactBootstrap.Nav, {
                         __source: {
                             fileName: "src/components/navbar/navbar.jsx",
-                            lineNumber: 34
+                            lineNumber: 31
                         },
                         __self: this,
                         children: [
-                            isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                            isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Nav.Link, {
                                 href: `/users/${user}`,
                                 __source: {
                                     fileName: "src/components/navbar/navbar.jsx",
-                                    lineNumber: 36
+                                    lineNumber: 33
                                 },
                                 __self: this,
                                 children: user
                             }),
-                            isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
+                            isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
                                 variant: "link",
                                 onClick: ()=>{
                                     onLoggedOut();
                                 },
                                 __source: {
                                     fileName: "src/components/navbar/navbar.jsx",
-                                    lineNumber: 39
+                                    lineNumber: 36
                                 },
                                 __self: this,
                                 children: "Sign Out"
                             }),
-                            !isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                            !isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Nav.Link, {
                                 href: "/",
                                 __source: {
                                     fileName: "src/components/navbar/navbar.jsx",
-                                    lineNumber: 42
+                                    lineNumber: 39
                                 },
                                 __self: this,
                                 children: "Sign In"
                             }),
-                            !isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_navDefault.default.Link, {
+                            !isAuth() && /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Nav.Link, {
                                 href: "/register",
                                 __source: {
                                     fileName: "src/components/navbar/navbar.jsx",
-                                    lineNumber: 45
+                                    lineNumber: 42
                                 },
                                 __self: this,
                                 children: "Sign Up"
@@ -45158,7 +45151,7 @@ function Navbar() {
         })
     }));
 }
-_c = _navbarDefault.default;
+_c = _reactBootstrap.Navbar;
 var _c;
 $RefreshReg$(_c, "Navbar");
 
@@ -45167,7 +45160,7 @@ $RefreshReg$(_c, "Navbar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-runtime":"8xIwr","react":"6TuXu","react-bootstrap/Nav":"io07g","react-bootstrap/Navbar":"eYZQl","react-bootstrap/Button":"9CzHT","./navbar.scss":"eqSoH","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap/Container":"2PRIq"}],"eqSoH":[function() {},{}],"2L0if":[function(require,module,exports) {
+},{"react/jsx-runtime":"8xIwr","react":"6TuXu","./navbar.scss":"eqSoH","@parcel/transformer-js/src/esmodule-helpers.js":"JacNc","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"5V79J","react-bootstrap":"h2YVd"}],"eqSoH":[function() {},{}],"2L0if":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "batch", ()=>_reactBatchedUpdates.unstable_batchedUpdates
