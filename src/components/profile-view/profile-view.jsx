@@ -23,9 +23,7 @@ class ProfileView extends React.Component {
   componentDidMount() {
     const accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
+      this.props.setUser(localStorage.getItem('user'));
       this.getUser(accessToken);
     }
   }
@@ -109,7 +107,7 @@ class ProfileView extends React.Component {
       username: this.state.username,
       password: this.state.password,
       email: this.state.email,
-      bithday: this.state.birthday
+      birthday: this.state.birthday
     }, {headers: { Authorization: `Bearer ${token}`}})
     .then(response => {
       this.props.setUser(response.data.username);
@@ -123,7 +121,7 @@ class ProfileView extends React.Component {
       alert('Update successful.');
       localStorage.setItem('user', this.state.username);
       console.table(response.data);
-      window.open(`/users/${this.username}`, '_self');
+      window.open(`/users/${this.state.username}`, '_self');
     })
     .catch(response => {
       console.error(response);
@@ -154,28 +152,24 @@ class ProfileView extends React.Component {
     this.setState({
       username: updatedUsername,
     });
-    this.username = updatedUsername;
   }
 
   setPassword(updatedPassword) {
     this.setState({
       password: updatedPassword,
     });
-    this.password = updatedPassword;
   }
 
   setEmail(updatedEmail) {
     this.setState({
       email: updatedEmail,
     });
-    this.email = updatedEmail;
   }
 
   setBirthday(updatedBirthday) {
     this.setState({
       birthday: updatedBirthday,
     });
-    this.birthday = updatedBirthday;
   }
 
   getMovieTitle(id) {
@@ -186,7 +180,6 @@ class ProfileView extends React.Component {
   render () {
 
     const { username, email, birthday, favoriteMovies } = this.state;
-    // const { user } = this.props;
 
     return ( 
       // return div with profile view
@@ -210,7 +203,7 @@ class ProfileView extends React.Component {
             <Card>
               <Card.Body>
                 <Card.Title>Update your profile information</Card.Title>
-                  <Form className="update-form" onSubmit={(e) => this.editUser(e, this.state.username, this.password, this.email, this.birthday)}>
+                  <Form className="update-form" onSubmit={(e) => this.editUser(e, this.state.username, this.state.password, this.state.email, this.state.birthday)}>
                     <Form.Group>
                       <Form.Label>Username:</Form.Label>
                         <Form.Control type="text" placeholder="Update your username" onChange = {e => this.setUsername(e.target.value)} required />
