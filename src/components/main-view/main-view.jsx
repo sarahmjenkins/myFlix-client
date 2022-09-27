@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 
 import { LoginView } from '../login-view/login-view';
@@ -60,9 +60,7 @@ class MainView extends React.Component {
   // user property is updated when a user logs in to that particular user
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user.username
-    });
+    this.props.setUser(authData.user.username);
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.username);
@@ -73,14 +71,11 @@ class MainView extends React.Component {
   onLoggedOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.setState({
-      user: null
-    });
+    this.props.setUser('');
   }
   
   render() {
-    const { movies } = this.props;
-    const { user } = this.state;
+    const { movies, user } = this.props;
     
     return (
       <Router>
@@ -151,7 +146,10 @@ class MainView extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { movies: state.movies }
+  return { 
+    movies: state.movies,
+    user: state.user 
+  }
 }
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
