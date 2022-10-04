@@ -12,7 +12,6 @@ import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
 import { NavBar } from '../navbar/navbar';
 import './main-view.scss';
 
@@ -68,7 +67,7 @@ class MainView extends React.Component {
     console.log({movies, user});
     return (
       <Router>
-        <Navbar user={user} />
+        <NavBar user={user} />
         <Container>
           <Row className="main-view justify-content-md-center">
             {/* path renders the login view if nobody is logged in or moviecard view if they are */}
