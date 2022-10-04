@@ -14,7 +14,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
-import { Navbar } from '../navbar/navbar';
+import { NavBar } from '../navbar/navbar';
 import './main-view.scss';
 
 class MainView extends React.Component {
