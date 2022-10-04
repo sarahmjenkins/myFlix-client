@@ -43,12 +43,13 @@ export function LoginView(props) {
         password: password
       })
       .then(response => {
-        const data = response.data;
+        const data = response.data
         props.onLoggedIn(data);
+        return
       })
       .catch(e => {
-        console.log('no such user')
-      });
+        console.log(e, 'no such user')
+      })
     }
   };
 
