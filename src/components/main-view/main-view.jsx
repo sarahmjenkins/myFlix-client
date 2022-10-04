@@ -6,9 +6,8 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 
 import { setMovies, setUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
-
+import ProfileView from '../profile-view/profile-view';
 import { LoginView } from '../login-view/login-view';
-// import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
@@ -22,18 +21,14 @@ class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [],
-      // selectedMovie: null,
-      // user: null
+      user: null
     };
   }
 
   componentDidMount() {
     const accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
+      this.props.setUser(localStorage.getItem('user'));
       this.getMovies(accessToken);
     }
   }
@@ -44,18 +39,12 @@ class MainView extends React.Component {
     })
     .then(response => {
       this.props.setMovies(response.data);
+      this.props.setUser(localStorage.getItem('user'));
     })
     .catch(error => {
       console.log(error);
     });
   }
-
-  // // state of selectedMovie property updated to the movie that the user clicks on
-  // setSelectedMovie(newSelectedMovie) {
-  //   this.setState({
-  //     selectedMovie: newSelectedMovie
-  //   });
-  // }
 
   // user property is updated when a user logs in to that particular user
   onLoggedIn(authData) {
@@ -76,7 +65,7 @@ class MainView extends React.Component {
   
   render() {
     const { movies, user } = this.props;
-    
+    console.log({movies, user});
     return (
       <Router>
         <Navbar user={user} />
@@ -89,11 +78,6 @@ class MainView extends React.Component {
               </Col>
               if (movies.length == 0) return <div className="main-view" />;
               return <MoviesList movies={movies} />
-              // return movies.map(m => (
-              //   <Col sm={12} md={4} lg={3} key={m._id}>
-              //     <MovieCard movie={m} />
-              //   </Col>
-              // ))
             }} />
             
             {/* path redirects to "/" if a user is logged in, otherwise the registration view will render */}
@@ -118,7 +102,7 @@ class MainView extends React.Component {
               if (!user) return <Redirect to="/" />
               if(movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-                <GenreView movies={this.state.movies} genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()} />
+                <GenreView movies={movies} genre={movies.find(m => m.genre.name === match.params.name).genre} onBackClick={() => history.goBack()} />
               </Col>
             }} />
             
@@ -127,15 +111,15 @@ class MainView extends React.Component {
               if (!user) return <Redirect to="/" />
               if (movies.length === 0) return <div className="main-view" />;
               return <Col md={8}>
-                <DirectorView movies={this.state.movies} director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} />
+                <DirectorView movies={movies} director={movies.find(m => m.director.name === match.params.name).director} onBackClick={() => history.goBack()} />
               </Col>
             }} />
 
             {/* path renders user's info */}
-            <Route exact path={`/users/${user}`} render={({ history, match }) => {
+            <Route exact path={`/users/${user}`} render={({ history }) => {
               if (!user) return <Redirect to="/" />
               return <Col md={8}>
-                <ProfileView user={user} movies={this.state.movies} onBackClick={() => history.goBack()} />
+                <ProfileView user={user} movies={movies} onBackClick={() => history.goBack()} />
               </Col>            
             }} />
           </Row>
@@ -146,6 +130,7 @@ class MainView extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log({state})
   return { 
     movies: state.movies,
     user: state.user 
