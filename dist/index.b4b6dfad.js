@@ -28068,8 +28068,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ReactReduxContext", ()=>ReactReduxContext);
 var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
-const ReactReduxContext = /*#__PURE__*/ (0, _reactDefault.default).createContext(null);
+const ReactReduxContext = /*#__PURE__*/ (0, _react.createContext)(null);
 ReactReduxContext.displayName = "ReactRedux";
 exports.default = ReactReduxContext;
 
@@ -28954,7 +28953,7 @@ function pureFinalPropsSelectorFactory(mapStateToProps, mapDispatchToProps, merg
     }
     function handleSubsequentCalls(nextState, nextOwnProps) {
         const propsChanged = !areOwnPropsEqual(nextOwnProps, ownProps);
-        const stateChanged = !areStatesEqual(nextState, state);
+        const stateChanged = !areStatesEqual(nextState, state, nextOwnProps, ownProps);
         state = nextState;
         ownProps = nextOwnProps;
         if (propsChanged && stateChanged) return handleNewPropsAndNewState();
